@@ -1,0 +1,2 @@
+model_checkpoint_path: "negtive_model"
+all_model_checkpoint_paths: "negtive_model"
