@@ -313,4 +313,14 @@ for i in li_1[:]:
     #据此选出最后的特征
     choose_cols = FI_lasso.index.tolist()
     choose_data = features[choose_cols].copy()
-    #然后手动修改最后的特征，即直接在数据集修改，不用代码修改了
+#重建数据集
+index_train = train.index - 2
+def split_data(choose_data, index_train):
+    cols = list(choose_data.columns)
+    for col in cols:  # 可能特征工程的过程中会产生极个别异常值（正负无穷大），这里用众数填充
+        choose_data[col].values[np.isinf(choose_data[col].values)] = choose_data[col].median()
+    x_train = choose_data[:max(index_train) + 1]  # 注意索引值对应关系
+    x_test = choose_data[max(index_train) + 1:]
+    return x_train, x_test
+x_train, x_test = split_data(choose_data, index_train)
+x_train.shape, y_train.shape, x_test.shape
