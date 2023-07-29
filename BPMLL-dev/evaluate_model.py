@@ -46,7 +46,8 @@ def sort(x):
     index = []
     sortX = []
     for i in range(length):
-        Min = float("inf")
+        #Min = float("inf")
+        Min = float()
         Min_j = i
         for j in range(length):
             if temp[j] < Min:
@@ -54,7 +55,8 @@ def sort(x):
                 Min_j = j
         sortX.append(Min)
         index.append(Min_j)
-        temp[Min_j] = float("inf")
+        #temp[Min_j] = float("inf")
+        temp[Min_j] = float()
     return temp, index
 
 
@@ -63,7 +65,7 @@ def findIndex(a, b):
         if a == b[i]:
             return i
 
-#所有的(outputs, test_target)其实就是指（y_pred, y_test）
+#所有的(outputs, test_target)其实就是指（ensemble_pred, y_test）
 def avgprec(outputs, test_target):
     test_data_num = outputs.shape[0]
     class_num = outputs.shape[1]
@@ -98,7 +100,7 @@ def avgprec(outputs, test_target):
         aveprec = aveprec + summary / labels_size[i]
     return aveprec / test_data_num
 
-#所有的(outputs, test_target)其实就是指（y_pred, y_test）
+#所有的(outputs, test_target)其实就是指（ensemble_pred, y_test）
 def Coverage(outputs, test_target):
     test_data_num = outputs.shape[0]
     class_num = outputs.shape[1]
@@ -123,7 +125,7 @@ def Coverage(outputs, test_target):
     return (cover / test_data_num - 1) / class_num
 
 
-#所有的(outputs, test_target)其实就是指（y_pred, y_test）
+#所有的(outputs, test_target)其实就是指（ensemble_pred, y_test）
 def OneError(outputs, test_target):
     test_data_num = outputs.shape[0]
     class_num = outputs.shape[1]
@@ -137,7 +139,7 @@ def OneError(outputs, test_target):
                 one_error = one_error + 1
     return one_error / num
 
-#所有的(outputs, test_target)其实就是指（y_true, y_pred）
+#所有的(outputs, test_target)其实就是指（ensemble_pred, y_test）
 def rloss(outputs, test_target):
     test_data_num = outputs.shape[0]
     class_num = outputs.shape[1]
@@ -280,3 +282,5 @@ def Friedman(N, k, r):
     temp = (sum(r2) - k * ((k + 1) ** 2) / 4) * 12 * N / k / (k + 1)
     F = (N - 1) * temp / (N * (k - 1) - temp)
     return F
+
+

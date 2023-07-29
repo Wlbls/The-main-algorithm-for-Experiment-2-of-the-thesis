@@ -53,6 +53,7 @@ def train(data_x, data_y, dataset_name, model_type):
         saver = tf.train.Saver()
         saver.save(sess, './tf_model/' + dataset_name + '/' + model_type + '_model')
 
+#定义训练阈值
 def train_threshold(data_x, data_y, pred, dataset_name, model_type):
     data_num = data_x.shape[0]
     label_num = data_y.shape[1]
